@@ -12,6 +12,7 @@ export interface Product {
   ];
   
   export const getAllProducts = (): Product[] => {
+    console.log(products);
     return products;
   };
   

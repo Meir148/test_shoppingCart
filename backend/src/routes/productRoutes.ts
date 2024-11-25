@@ -4,8 +4,10 @@ import { authenticate } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.get("/", getAllTheProducts);
-router.get("/:id", getOneProduct);
-router.put("/:id", authenticate , update);
+router.get("/", authenticate, getAllTheProducts);
+
+router.get("/:id", authenticate, getOneProduct);
+
+router.put("/:id", authenticate, update);
 
 export { router as productRoutes };

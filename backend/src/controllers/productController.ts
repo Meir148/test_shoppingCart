@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { getAllProducts, getProductById, updateStock } from '../models/productModel';
 
 export const getAllTheProducts = (req: Request, res: Response) => {
+  // console.log('getAllTheProducts');
+  
   const products = getAllProducts();
   res.json(products);
 };

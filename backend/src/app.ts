@@ -8,9 +8,18 @@ import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 
 // routes
@@ -18,10 +27,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 
 
-io.on('connection', (socket) => {
+io.on('connection', (socket:any) => {
   console.log('User connected');
 
-  socket.on('stockUpdate', (data) => {
+  socket.on('stockUpdate', (data:any) => {
     console.log('Stock update:', data);
     socket.broadcast.emit('stockUpdate', data); 
   });
